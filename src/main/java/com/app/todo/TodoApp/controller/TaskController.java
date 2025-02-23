@@ -1,8 +1,7 @@
 package com.app.todo.TodoApp.controller;
 
-import com.app.todo.TodoApp.entity.Task;
+import com.app.todo.TodoApp.dto.TaskDTO;
 import com.app.todo.TodoApp.service.TaskService;
-import com.app.todo.TodoApp.service.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,19 +19,19 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getTasks(){
+    public List<TaskDTO> getTasks(){
         return taskService.getTasks();
 
     }
 
     @PostMapping
-    public Task saveTask(@RequestBody Task task){
-        return taskService.saveTask(task);
+    public TaskDTO saveTask(@RequestBody TaskDTO taskDTO){
+        return taskService.saveTask(taskDTO);
     }
 
     @PutMapping("{id}")
-    public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task){
-        return taskService.updateTask(id, task);
+    public TaskDTO updateTask(@PathVariable("id") Long id, @RequestBody TaskDTO taskDTO){
+        return taskService.updateTask(id, taskDTO);
     }
 
     @DeleteMapping("{id}")

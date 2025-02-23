@@ -1,16 +1,11 @@
 package com.app.todo.TodoApp.service;
 
-import com.app.todo.TodoApp.entity.Task;
-
+import com.app.todo.TodoApp.dto.TaskDTO;
 import java.util.List;
 
 public interface TaskService {
-
-List<Task> getTasks();
-
-Task saveTask(Task task);
-
-Task updateTask(Long id, Task task);
-
-void deleteTask(Long id);
+    List<TaskDTO> getTasks();
+    TaskDTO saveTask(TaskDTO taskDTO);
+    TaskDTO updateTask(Long id, TaskDTO taskDTO);
+    void deleteTask(Long id);
 }
