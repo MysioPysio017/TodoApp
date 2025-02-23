@@ -1,7 +1,8 @@
 package com.app.todo.TodoApp.controller;
 
 import com.app.todo.TodoApp.entity.Task;
-import com.app.todo.TodoApp.repository.TaskRepository;
+import com.app.todo.TodoApp.service.TaskService;
+import com.app.todo.TodoApp.service.TaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,33 +12,32 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TaskController {
 
+    private final TaskService taskService;
+
     @Autowired
-    TaskRepository taskRepository;
+    TaskController(TaskService taskService){
+        this.taskService = taskService;
+    }
 
     @GetMapping
     public List<Task> getTasks(){
-        return taskRepository.findAll();
+        return taskService.getTasks();
 
     }
 
     @PostMapping
     public Task saveTask(@RequestBody Task task){
-        return taskRepository.save(task);
+        return taskService.saveTask(task);
     }
 
     @PutMapping("{id}")
     public Task updateTask(@PathVariable("id") Long id, @RequestBody Task task){
-        Task updateTask = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("id not found"));
-        updateTask.setTitle(task.getTitle());
-        updateTask.setBody(task.getBody());
-        updateTask.setDueDate(task.getDueDate());
-        updateTask.setCompleted(task.isCompleted());
-        return taskRepository.save(updateTask);
+        return taskService.updateTask(id, task);
     }
 
     @DeleteMapping("{id}")
     public void deleteTask(@PathVariable("id") Long id){
-        taskRepository.deleteById(id);
+        taskService.deleteTask(id);
 
     }
 
