@@ -2,6 +2,7 @@ package com.app.todo.TodoApp.controller;
 
 import com.app.todo.TodoApp.dto.TaskDTO;
 import com.app.todo.TodoApp.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,12 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskDTO saveTask(@RequestBody TaskDTO taskDTO){
+    public TaskDTO saveTask(@Valid @RequestBody TaskDTO taskDTO){
         return taskService.saveTask(taskDTO);
     }
 
     @PutMapping("{id}")
-    public TaskDTO updateTask(@PathVariable("id") Long id, @RequestBody TaskDTO taskDTO){
+    public TaskDTO updateTask(@PathVariable("id") Long id, @Valid @RequestBody TaskDTO taskDTO){
         return taskService.updateTask(id, taskDTO);
     }
 
