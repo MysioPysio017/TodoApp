@@ -2,6 +2,7 @@ package com.app.todo.TodoApp.service;
 
 import com.app.todo.TodoApp.dto.TaskDTO;
 import com.app.todo.TodoApp.entity.Task;
+import com.app.todo.TodoApp.exception.TaskNotFoundException;
 import com.app.todo.TodoApp.mapper.TaskMapper;
 import com.app.todo.TodoApp.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public TaskDTO updateTask(Long id, TaskDTO taskDTO) {
         Task task = taskMapper.toEntity(taskDTO);
-        Task updateTask = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("id not found"));
+        Task updateTask = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
         updateTask.setTitle(task.getTitle());
         updateTask.setBody(task.getBody());
         updateTask.setDueDate(task.getDueDate());
