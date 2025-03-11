@@ -1,5 +1,6 @@
 package com.app.todo.TodoApp.entity;
 
+import com.app.todo.TodoApp.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +35,6 @@ public class User {
     @Size(min = 8, message = "Your password must contain at least 8 characters")
     private String password;
 
-    @NotNull
-    private String role = "USER";
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.ROLE_USER;
 }
