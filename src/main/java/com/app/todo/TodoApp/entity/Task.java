@@ -32,4 +32,8 @@ public class Task {
     private LocalDateTime dueDate;
 
     private boolean completed;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
